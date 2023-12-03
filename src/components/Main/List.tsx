@@ -1,56 +1,57 @@
 import styled from "styled-components";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsArrowRightSquare } from "react-icons/bs";
-import { useStore } from "../../hooks/store/store";
 import { useNavigate } from "react-router-dom";
+import { useFetchTodos } from "../../hooks/querys/todo";
+import { Fragment } from "react";
 
 const MainList = () => {
-  const { bears, increasePopulation, removeAllBears } = useStore();
-
-  const increase = () => {
-    increasePopulation();
-  };
-
-  const reset = () => {
-    removeAllBears();
-  };
-
+  const { data, isLoading, isError, isSuccess } = useFetchTodos();
   const navigate = useNavigate();
 
-  const moveToDetail = () => {
-    navigate("/detail/2");
+  const moveToDetail = (todoId: number) => {
+    navigate(`/detail/${todoId}`);
   };
 
   const moveToAdd = () => {
     navigate("/add");
   };
 
+  if (isLoading) {
+    return (
+      <Fragment>
+        <h1>LOADING ...</h1>
+      </Fragment>
+    );
+  }
+
   return (
     <Wrapper>
-      {bears}
-      <button onClick={increase}> INCREASE</button>
-      <button onClick={reset}> RESET</button>
-
       <AddButtonWrap>
         <button onClick={moveToAdd}>+</button>
         <p>Add New Task</p>
       </AddButtonWrap>
       <ListWrap>
-        <p>total : 52</p>
+        <p>total : {data.total} </p>
 
         <ListItemWrap>
           <ListItem>
-            <ListItemTitleWrap>
-              <RiDeleteBinLine />
-              <input type="checkbox" id="isChecked" name="isChecked" />
-              <label htmlFor="isChecked">TITLE TITLE TITLE</label>
-            </ListItemTitleWrap>
-            <ListItemDateWrap>
-              <p>2023.10.26 09:02:13</p>
-              <button onClick={moveToDetail}>
-                <BsArrowRightSquare />
-              </button>
-            </ListItemDateWrap>
+            {data.list.map((todo: any) => {
+              return (
+                <Fragment key={todo._id}>
+                  <ListItemTitleWrap>
+                    <RiDeleteBinLine />
+                    <input type="checkbox" id="isChecked" name="isChecked" />
+                    <label htmlFor="isChecked">{todo.title}</label>
+                  </ListItemTitleWrap>
+                  <ListItemDateWrap>
+                    <button onClick={() => moveToDetail(todo.todoId)}>
+                      <BsArrowRightSquare />
+                    </button>
+                  </ListItemDateWrap>
+                </Fragment>
+              );
+            })}
           </ListItem>
         </ListItemWrap>
       </ListWrap>

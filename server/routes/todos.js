@@ -5,8 +5,12 @@ const router = express.Router();
 
 // 전체 불러오기
 router.get("/list", async (req, res) => {
-  const todoList = await Todos.find({});
-  res.json({ total: todoList.length, list: todoList });
+  try {
+    const todoList = await Todos.find({});
+    return res.json({ total: todoList.length, list: todoList });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 // 상세보기

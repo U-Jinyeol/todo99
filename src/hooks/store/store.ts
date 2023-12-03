@@ -6,6 +6,7 @@ interface IUseStoreState {
   removeAllBears: () => void;
 }
 
+//example
 export const useStore = create<IUseStoreState>((set) => ({
   bears: 0,
   increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
