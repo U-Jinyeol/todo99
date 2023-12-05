@@ -7,6 +7,7 @@ import { Fragment } from "react";
 
 const MainList = () => {
   const { data, isLoading } = useFetchTodos();
+
   const navigate = useNavigate();
 
   const moveToDetail = (todoId: number) => {

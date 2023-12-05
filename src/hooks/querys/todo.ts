@@ -18,9 +18,7 @@ export const useFetchTodos = () => {
 export const useFetchDetailTodo = (id: number) => {
   return useQuery({
     queryKey: ["getDetailTodo"],
-    queryFn: () => {
-      _getDetailTodo(id);
-    },
+    queryFn: () => _getDetailTodo(id),
   });
 };
 

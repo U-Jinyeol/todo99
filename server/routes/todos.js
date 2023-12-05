@@ -20,7 +20,7 @@ router.get("/list/detail/:id", async (req, res) => {
     if (!todo) {
       return res.status(404).json({ error: "Todo not found" });
     }
-    res.json({ detail: todo });
+    res.json({ list: todo });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }

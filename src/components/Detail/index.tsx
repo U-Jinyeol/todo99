@@ -1,8 +1,23 @@
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import styled from "styled-components";
+import { useFetchDetailTodo } from "../../hooks/querys/todo";
+import { useParams } from "react-router-dom";
+import { Fragment } from "react";
 
 const DetailContent = () => {
+  const { id } = useParams();
+
+  const { data, isLoading } = useFetchDetailTodo(Number(id));
+
+  if (isLoading) {
+    return (
+      <Fragment>
+        <h1>LOADING ...</h1>
+      </Fragment>
+    );
+  }
+
   return (
     <div className="container">
       <ListTop>
@@ -12,8 +27,8 @@ const DetailContent = () => {
         <RiDeleteBinLine />
       </ListTop>
 
-      <ListLabel>Tag</ListLabel>
-      <ListTag>모임</ListTag>
+      <ListLabel>{}</ListLabel>
+      <ListTag>{data?.list[0]?.tag}</ListTag>
 
       <ListLabel>Title</ListLabel>
       <ListTitle>
