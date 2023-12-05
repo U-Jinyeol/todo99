@@ -5,7 +5,12 @@ export type CreateToDoInput = {
   todoId?: number;
 };
 
-export type TodoItem = {
+export type TodoData = {
+  list: TodoList[];
+  total: number;
+};
+
+export type TodoList = {
   title: string;
   tag: string;
   content: string;

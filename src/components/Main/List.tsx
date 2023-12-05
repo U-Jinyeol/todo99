@@ -6,7 +6,7 @@ import { useFetchTodos } from "../../hooks/querys/todo";
 import { Fragment } from "react";
 
 const MainList = () => {
-  const { data, isLoading, isError, isSuccess } = useFetchTodos();
+  const { data, isLoading } = useFetchTodos();
   const navigate = useNavigate();
 
   const moveToDetail = (todoId: number) => {
@@ -32,11 +32,11 @@ const MainList = () => {
         <p>Add New Task</p>
       </AddButtonWrap>
       <ListWrap>
-        <p>total : {data.total} </p>
+        <p>total : {data?.total} </p>
 
         <ListItemWrap>
           <ListItem>
-            {data.list.map((todo: any) => {
+            {data?.list.map((todo: any) => {
               return (
                 <Fragment key={todo._id}>
                   <ListItemTitleWrap>

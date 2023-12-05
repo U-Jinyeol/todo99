@@ -35,6 +35,8 @@ router.post("/list", async (req, res) => {
     tag,
     content,
     todoId,
+    createdAt: new Date(),
+    isChecked: false,
   });
 
   res.json({ list: createdTodos });
@@ -63,8 +65,6 @@ router.put("/list/:id", async (req, res) => {
 
 // 삭제하기
 router.delete("/list/:id", async (req, res) => {
-  console.log("delete >>>", req.params.id);
-
   try {
     const deletedTodo = await Todos.findOneAndDelete({
       todoId: req.params.id,
